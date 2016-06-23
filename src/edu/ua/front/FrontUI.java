@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Aziz Nanthaamornphong
+ *    Aziz Nanthaamornphong and Anawat Leathongkum
  */
 package edu.ua.front;
 
