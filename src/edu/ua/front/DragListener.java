@@ -18,6 +18,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
@@ -26,7 +27,7 @@ import javax.swing.JTextArea;
 
 /**
  *
- * @author t2tim
+ * @author t2time
  */
 public class DragListener implements DropTargetListener {
 
@@ -70,13 +71,31 @@ public class DragListener implements DropTargetListener {
                     
                     DefaultListModel listModel = new DefaultListModel();
                     
+                    
                     // And add the list of file names to our text area
                     java.util.List list = (java.util.List) tr.getTransferData(flavors[i]);
                     System.out.println("Total Files::" + list.size());
                     for (int j = 0; j < list.size(); j++) {
                         ta.append(list.get(j) + "\n");
-                        listModel.addElement(list.get(j));
+                        
+                        //check file or folder 
+                        if(list.get(j).toString().endsWith(".f90")){
+                          listModel.addElement(list.get(j));
+                          
+                        }else{
+                            
+                          Filewalker fw = new Filewalker();
+                      
+                          ArrayList<String> listPathfile = fw.walk(list.get(j).toString());
+                          
+                          for (int k = 0; k < listPathfile.size(); k++) {
+                              listModel.addElement(listPathfile.get(k)+ "\n"); 
+                          }
+                           
+                        }
+                        
                     }
+                    
                     this.fl.setModel(listModel);
                     
 
