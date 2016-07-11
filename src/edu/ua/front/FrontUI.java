@@ -10,6 +10,7 @@
  */
 package edu.ua.front;
 
+import AppPackage.AnimationClass;
 import edu.ua.util.GlobalErrorException;
 import java.awt.TextArea;
 import java.awt.dnd.DropTarget;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
@@ -36,6 +38,8 @@ public class FrontUI extends javax.swing.JFrame {
         initComponents();
         connectToDradDrop();
     }
+    int xMouse;
+    int yMouse;
     private void connectToDradDrop(){
         DragListener d =new DragListener(textAreaFilelist,fileList);
         new DropTarget(this,d);
@@ -52,236 +56,276 @@ public class FrontUI extends javax.swing.JFrame {
 
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        addFileButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         fileList = new javax.swing.JList();
-        label2 = new java.awt.Label();
         outputText = new javax.swing.JTextField();
-        outputFileButton = new javax.swing.JButton();
-        generateButton = new javax.swing.JButton();
-        removeFileButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        executeUMLButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        resetButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         statusBox = new javax.swing.JTextPane();
-        jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         textAreaFilelist = new javax.swing.JTextArea();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        aboutMenuItem = new javax.swing.JMenuItem();
-        quitMenuItem = new javax.swing.JMenuItem();
+        close = new javax.swing.JLabel();
+        mini = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        buttonAdd = new javax.swing.JLabel();
+        buttonRemove = new javax.swing.JLabel();
+        buttonReset = new javax.swing.JLabel();
+        buttonGenerate = new javax.swing.JLabel();
+        buttonView = new javax.swing.JLabel();
+        labelFile = new javax.swing.JLabel();
+        buttonSave = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        javax.swing.JLabel bgFrame = new javax.swing.JLabel();
 
         jMenuItem2.setText("jMenuItem2");
 
         jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(800, 500));
+        setUndecorated(true);
+        setResizable(false);
+        getContentPane().setLayout(null);
 
-        addFileButton.setBackground(new java.awt.Color(204, 204, 204));
-        addFileButton.setFont(new java.awt.Font("Lucida Grande", 1, 16)); // NOI18N
-        addFileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/1380762678_001_01.png"))); // NOI18N
-        addFileButton.setText("Add");
-        addFileButton.setToolTipText("Add source code (s)");
-        addFileButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        addFileButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        addFileButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addFileButtonActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(600, 80));
 
         jScrollPane1.setViewportView(fileList);
 
-        label2.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        label2.setForeground(new java.awt.Color(51, 51, 51));
-        label2.setText("Output File (.xmi):");
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(168, 230, 624, 90);
+        getContentPane().add(outputText);
+        outputText.setBounds(168, 340, 466, 40);
 
-        outputFileButton.setFont(new java.awt.Font("Lucida Grande", 1, 16)); // NOI18N
-        outputFileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/1380763165_001_52.gif"))); // NOI18N
-        outputFileButton.setText("Save as");
-        outputFileButton.setToolTipText("Specifiy an output file (.xmi)");
-        outputFileButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        outputFileButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        outputFileButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                outputFileButtonActionPerformed(evt);
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("LilyUPC", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("About");
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
             }
         });
-
-        generateButton.setFont(new java.awt.Font("Lucida Grande", 1, 16)); // NOI18N
-        generateButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/Gear.png"))); // NOI18N
-        generateButton.setText("Generate");
-        generateButton.setToolTipText("Generae the output file");
-        generateButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        generateButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        generateButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                generateButtonActionPerformed(evt);
-            }
-        });
-
-        removeFileButton.setFont(new java.awt.Font("Lucida Grande", 1, 16)); // NOI18N
-        removeFileButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/1380762803_001_05.png"))); // NOI18N
-        removeFileButton.setText("Remove");
-        removeFileButton.setToolTipText("Remove selected file(s)");
-        removeFileButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        removeFileButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        removeFileButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeFileButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel1.setText("Status/Log:");
-
-        executeUMLButton.setFont(new java.awt.Font("Lucida Grande", 1, 16)); // NOI18N
-        executeUMLButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/1380763299_001_37.gif"))); // NOI18N
-        executeUMLButton.setText("View");
-        executeUMLButton.setToolTipText("Open ArgoUML");
-        executeUMLButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        executeUMLButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        executeUMLButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                executeUMLButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/1hqic.png"))); // NOI18N
-        jLabel2.setText("File(s):");
-        jLabel2.setPreferredSize(new java.awt.Dimension(47, 20));
-
-        resetButton.setFont(new java.awt.Font("Lucida Grande", 1, 16)); // NOI18N
-        resetButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/1380762935_001_39.png"))); // NOI18N
-        resetButton.setText("Reset");
-        resetButton.setToolTipText("Clear all files");
-        resetButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        resetButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        resetButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetButtonActionPerformed(evt);
-            }
-        });
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(750, 30, 30, 24);
 
         statusBox.setBackground(new java.awt.Color(204, 204, 204));
         statusBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jScrollPane3.setViewportView(statusBox);
 
+        getContentPane().add(jScrollPane3);
+        jScrollPane3.setBounds(10, 500, 624, 90);
+
         textAreaFilelist.setColumns(20);
         textAreaFilelist.setRows(5);
         jScrollPane2.setViewportView(textAreaFilelist);
 
-        jMenuBar1.setBackground(new java.awt.Color(0, 0, 255));
-        jMenuBar1.setForeground(new java.awt.Color(51, 51, 255));
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(330, 40, 450, 0);
 
-        jMenu1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/gear-logo.png"))); // NOI18N
-        jMenu1.setText("ForUML");
-        jMenu1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-
-        aboutMenuItem.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        aboutMenuItem.setText("About ForUML");
-        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aboutMenuItemActionPerformed(evt);
+        close.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeMouseClicked(evt);
             }
         });
-        jMenu1.add(aboutMenuItem);
+        getContentPane().add(close);
+        close.setBounds(774, 8, 11, 11);
 
-        quitMenuItem.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        quitMenuItem.setText("Quit ForUML");
-        quitMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                quitMenuItemActionPerformed(evt);
+        mini.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mini.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                miniMouseClicked(evt);
             }
         });
-        jMenu1.add(quitMenuItem);
+        getContentPane().add(mini);
+        mini.setBounds(755, 8, 11, 11);
 
-        jMenuBar1.add(jMenu1);
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel2MousePressed(evt);
+            }
+        });
+        jLabel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jLabel2MouseDragged(evt);
+            }
+        });
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, 0, 800, 25);
 
-        setJMenuBar(jMenuBar1);
+        buttonAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/add1.png"))); // NOI18N
+        buttonAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonAddMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buttonAddMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                buttonAddMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonAddMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                buttonAddMouseReleased(evt);
+            }
+        });
+        getContentPane().add(buttonAdd);
+        buttonAdd.setBounds(10, 110, 149, 97);
 
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(jLabel1)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 890, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 957, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                                .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jScrollPane2))
-                            .add(layout.createSequentialGroup()
-                                .add(23, 23, 23)
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 840, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(layout.createSequentialGroup()
-                                        .add(label2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(1, 1, 1)
-                                        .add(outputText)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(outputFileButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 107, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(addFileButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                            .add(removeFileButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                            .add(resetButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                            .add(generateButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                            .add(executeUMLButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(addFileButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(removeFileButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 39, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(resetButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(generateButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 39, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(executeUMLButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 281, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(outputFileButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(outputText, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(label2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel1))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        buttonRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/remove1.png"))); // NOI18N
+        buttonRemove.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonRemoveMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buttonRemoveMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                buttonRemoveMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonRemoveMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                buttonRemoveMouseReleased(evt);
+            }
+        });
+        getContentPane().add(buttonRemove);
+        buttonRemove.setBounds(168, 110, 149, 97);
+
+        buttonReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/reset1.png"))); // NOI18N
+        buttonReset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonResetMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buttonResetMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                buttonResetMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonResetMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                buttonResetMouseReleased(evt);
+            }
+        });
+        getContentPane().add(buttonReset);
+        buttonReset.setBounds(326, 110, 149, 97);
+
+        buttonGenerate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/generate1.png"))); // NOI18N
+        buttonGenerate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonGenerateMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buttonGenerateMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                buttonGenerateMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonGenerateMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                buttonGenerateMouseReleased(evt);
+            }
+        });
+        getContentPane().add(buttonGenerate);
+        buttonGenerate.setBounds(484, 110, 149, 97);
+
+        buttonView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/view1.png"))); // NOI18N
+        buttonView.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonViewMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buttonViewMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                buttonViewMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonViewMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                buttonViewMouseReleased(evt);
+            }
+        });
+        getContentPane().add(buttonView);
+        buttonView.setBounds(642, 110, 149, 97);
+
+        labelFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/file.png"))); // NOI18N
+        getContentPane().add(labelFile);
+        labelFile.setBounds(10, 230, 149, 90);
+
+        buttonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/save1.png"))); // NOI18N
+        buttonSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonSaveMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buttonSaveMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                buttonSaveMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonSaveMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                buttonSaveMouseReleased(evt);
+            }
+        });
+        getContentPane().add(buttonSave);
+        buttonSave.setBounds(642, 340, 149, 40);
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("LilyUPC", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Status/Log");
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(12, 477, 60, 24);
+
+        bgFrame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ua/front/frameGUI.png"))); // NOI18N
+        getContentPane().add(bgFrame);
+        bgFrame.setBounds(0, 0, 800, 500);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFileButtonActionPerformed
+    private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_closeMouseClicked
+
+    private void miniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_miniMouseClicked
+        this.setState(FrontUI.ICONIFIED);
+    }//GEN-LAST:event_miniMouseClicked
+
+    private void jLabel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseDragged
+         int x = evt.getXOnScreen();
+         int y = evt.getYOnScreen();
+         this.setLocation(x-xMouse,y-yMouse);
+    }//GEN-LAST:event_jLabel2MouseDragged
+
+    private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+         xMouse = evt.getX();
+         yMouse = evt.getY();
+    }//GEN-LAST:event_jLabel2MousePressed
+
+    private void buttonAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAddMouseClicked
+        
         JFileChooser fc = new JFileChooser();
         fc.setMultiSelectionEnabled(true);
         FileFilter f90Filter = new ExtensionFileFilter(null, new String[]{"F90"});
@@ -296,24 +340,98 @@ public class FrontUI extends javax.swing.JFrame {
             }
             this.fileList.setModel(listModel);
         }
-    }//GEN-LAST:event_addFileButtonActionPerformed
+        
+//        System.out.println("Clicked");
+//        AnimationClass ac = new AnimationClass();
+//
+//        ac.jLabelXRight(40, 560, 10, 2, jLabel2);
+//        ac.jTextAreaXRight(40, 560, 10, 2, jScrollPane1);
+//        ac.jTextAreaXRight(40, 560, 10, 2, jScrollPane2);
+            
+    }//GEN-LAST:event_buttonAddMouseClicked
 
-    private void outputFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputFileButtonActionPerformed
+    private void buttonAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAddMouseEntered
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/add2.png"));
+        buttonAdd.setIcon(II);
+    }//GEN-LAST:event_buttonAddMouseEntered
 
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        fc.setSelectedFile(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "output.xmi"));
-      
-        int returnVal = fc.showSaveDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-            this.outputText.setText(file.getAbsolutePath());
-        }
-    }//GEN-LAST:event_outputFileButtonActionPerformed
+    private void buttonAddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAddMouseExited
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/add1.png"));
+        buttonAdd.setIcon(II);
+    }//GEN-LAST:event_buttonAddMouseExited
 
-    private void generateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateButtonActionPerformed
-      
+    private void buttonAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAddMousePressed
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/add3.png"));
+        buttonAdd.setIcon(II);
+    }//GEN-LAST:event_buttonAddMousePressed
 
+    private void buttonAddMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAddMouseReleased
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/add2.png"));
+        buttonAdd.setIcon(II);
+
+    }//GEN-LAST:event_buttonAddMouseReleased
+
+    private void buttonRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRemoveMouseClicked
+         int[] i = this.fileList.getSelectedIndices();
+        Object[] obj = this.fileList.getSelectedValues();
+        
+        DefaultListModel list = (DefaultListModel) this.fileList.getModel();
+        for(int j=0; j<i.length;j++){
+            list.removeElement(obj[j]);
+        }    
+ 
+    }//GEN-LAST:event_buttonRemoveMouseClicked
+
+    private void buttonRemoveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRemoveMouseEntered
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/remove2.png"));
+        buttonRemove.setIcon(II);
+    }//GEN-LAST:event_buttonRemoveMouseEntered
+
+    private void buttonRemoveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRemoveMouseExited
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/remove1.png"));
+        buttonRemove.setIcon(II);
+    }//GEN-LAST:event_buttonRemoveMouseExited
+
+    private void buttonRemoveMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRemoveMousePressed
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/remove3.png"));
+        buttonRemove.setIcon(II);
+    }//GEN-LAST:event_buttonRemoveMousePressed
+
+    private void buttonRemoveMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRemoveMouseReleased
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/remove2.png"));
+        buttonRemove.setIcon(II);
+
+    }//GEN-LAST:event_buttonRemoveMouseReleased
+
+    private void buttonResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonResetMouseClicked
+        this.fileList.setModel(new DefaultListModel());
+        this.outputText.setText("");
+        
+    }//GEN-LAST:event_buttonResetMouseClicked
+
+    private void buttonResetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonResetMouseEntered
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/reset2.png"));
+        buttonReset.setIcon(II);
+    }//GEN-LAST:event_buttonResetMouseEntered
+
+    private void buttonResetMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonResetMouseExited
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/reset1.png"));
+        buttonReset.setIcon(II);
+    }//GEN-LAST:event_buttonResetMouseExited
+
+    private void buttonResetMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonResetMousePressed
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/reset3.png"));
+        buttonReset.setIcon(II);
+    }//GEN-LAST:event_buttonResetMousePressed
+
+    private void buttonResetMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonResetMouseReleased
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/reset2.png"));
+        buttonReset.setIcon(II);
+
+    }//GEN-LAST:event_buttonResetMouseReleased
+
+    private void buttonGenerateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGenerateMouseClicked
+        
       try {
             String output = this.outputText.getText();
             if (output.equals("")) {
@@ -376,38 +494,99 @@ public class FrontUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,GlobalErrorException.getError(), "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();           
         }
-      
-    }//GEN-LAST:event_generateButtonActionPerformed
-
-    private void removeFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeFileButtonActionPerformed
- 
-        int[] i = this.fileList.getSelectedIndices();
-        Object[] obj = this.fileList.getSelectedValues();
         
-        DefaultListModel list = (DefaultListModel) this.fileList.getModel();
-        for(int j=0; j<i.length;j++){
-            list.removeElement(obj[j]);
-        }     
-    }//GEN-LAST:event_removeFileButtonActionPerformed
+    }//GEN-LAST:event_buttonGenerateMouseClicked
 
-    private void executeUMLButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_executeUMLButtonActionPerformed
+    private void buttonGenerateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGenerateMouseEntered
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/generate2.png"));
+        buttonGenerate.setIcon(II);
+    }//GEN-LAST:event_buttonGenerateMouseEntered
+
+    private void buttonGenerateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGenerateMouseExited
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/generate1.png"));
+        buttonGenerate.setIcon(II);
+    }//GEN-LAST:event_buttonGenerateMouseExited
+
+    private void buttonGenerateMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGenerateMousePressed
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/generate3.png"));
+        buttonGenerate.setIcon(II);
+    }//GEN-LAST:event_buttonGenerateMousePressed
+
+    private void buttonGenerateMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGenerateMouseReleased
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/generate2.png"));
+        buttonGenerate.setIcon(II);
+    }//GEN-LAST:event_buttonGenerateMouseReleased
+
+    private void buttonViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonViewMouseClicked
         executeArgoUML();
-     
-    }//GEN-LAST:event_executeUMLButtonActionPerformed
 
-    private void quitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitMenuItemActionPerformed
-        System.exit(1);
-    }//GEN-LAST:event_quitMenuItemActionPerformed
+    }//GEN-LAST:event_buttonViewMouseClicked
 
-    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
+    private void buttonViewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonViewMouseEntered
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/view2.png"));
+        buttonView.setIcon(II);
+    }//GEN-LAST:event_buttonViewMouseEntered
+
+    private void buttonViewMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonViewMouseExited
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/view1.png"));
+        buttonView.setIcon(II);
+    }//GEN-LAST:event_buttonViewMouseExited
+
+    private void buttonViewMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonViewMousePressed
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/view3.png"));
+        buttonView.setIcon(II);
+    }//GEN-LAST:event_buttonViewMousePressed
+
+    private void buttonViewMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonViewMouseReleased
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/view2.png"));
+        buttonView.setIcon(II);
+
+    }//GEN-LAST:event_buttonViewMouseReleased
+
+    private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
+         JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        fc.setSelectedFile(new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "output.xmi"));
+      
+        int returnVal = fc.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            this.outputText.setText(file.getAbsolutePath());
+        }
+      
+    }//GEN-LAST:event_buttonSaveMouseClicked
+
+    private void buttonSaveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseEntered
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/save2.png"));
+        buttonSave.setIcon(II);
+    }//GEN-LAST:event_buttonSaveMouseEntered
+
+    private void buttonSaveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseExited
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/save1.png"));
+        buttonSave.setIcon(II);
+    }//GEN-LAST:event_buttonSaveMouseExited
+
+    private void buttonSaveMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMousePressed
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/save3.png"));
+        buttonSave.setIcon(II);
+    }//GEN-LAST:event_buttonSaveMousePressed
+
+    private void buttonSaveMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseReleased
+        ImageIcon II = new ImageIcon(getClass().getResource("/edu/ua/front/save2.png"));
+        buttonSave.setIcon(II);
+
+    }//GEN-LAST:event_buttonSaveMouseReleased
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        AnimationClass ac = new AnimationClass();
+        ac.jTextAreaYUp(500, 390, 10, 2, jScrollPane3);
+        ac.jTextAreaYDown(390, 500, 10, 2, jScrollPane3);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         About about = new About();
         about.setVisible(true);
-    }//GEN-LAST:event_aboutMenuItemActionPerformed
-
-    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
-        this.fileList.setModel(new DefaultListModel());
-        this.outputText.setText("");
-    }//GEN-LAST:event_resetButtonActionPerformed
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     private void executeArgoUML() {
        StyleConstants.setBold(BOLD_BLACK, true); 
@@ -470,27 +649,25 @@ public class FrontUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
-    private javax.swing.JButton addFileButton;
-    private javax.swing.JButton executeUMLButton;
+    private javax.swing.JLabel buttonAdd;
+    private javax.swing.JLabel buttonGenerate;
+    private javax.swing.JLabel buttonRemove;
+    private javax.swing.JLabel buttonReset;
+    private javax.swing.JLabel buttonSave;
+    private javax.swing.JLabel buttonView;
+    private javax.swing.JLabel close;
     private javax.swing.JList fileList;
-    private javax.swing.JButton generateButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
-    private java.awt.Label label2;
-    private javax.swing.JButton outputFileButton;
+    private javax.swing.JLabel labelFile;
+    private javax.swing.JLabel mini;
     private javax.swing.JTextField outputText;
-    private javax.swing.JMenuItem quitMenuItem;
-    private javax.swing.JButton removeFileButton;
-    private javax.swing.JButton resetButton;
     private javax.swing.JTextPane statusBox;
     private javax.swing.JTextArea textAreaFilelist;
     // End of variables declaration//GEN-END:variables
