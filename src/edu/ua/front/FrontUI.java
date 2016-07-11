@@ -98,7 +98,7 @@ public class FrontUI extends javax.swing.JFrame {
         outputText.setBounds(168, 340, 466, 40);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("LilyUPC", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("LilyUPC", 0, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("About");
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -108,7 +108,7 @@ public class FrontUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(750, 30, 30, 24);
+        jLabel1.setBounds(725, 70, 40, 24);
 
         statusBox.setBackground(new java.awt.Color(204, 204, 204));
         statusBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
